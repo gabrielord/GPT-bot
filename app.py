@@ -2,7 +2,7 @@ import streamlit as st
 import spacy
 from pdfExtraction import extract_text_from_pdf
 from model import qa_pipeline
-from summarizer import summarize_text, extract_key_phrases
+from summarizer import extract_key_phrases
 from sentence_transformers import SentenceTransformer
 import numpy as np
 import faiss
@@ -15,6 +15,8 @@ def main():
     index = create_faiss_index(model_embedding.get_sentence_embedding_dimension())
     # Example dictionary to hold document metadata
     document_store = {}
+
+    combined_text = ""
 
     st.title('PDF Question Answering Bot')
 
@@ -32,11 +34,9 @@ def main():
             document_embedding = text_to_embedding(document_text, model_embedding)
             add_document_to_store(uploaded_file.name, document_text, document_embedding, index, document_store)
             key_phrases = extract_key_phrases(document_text)
+            st.write('Key phrases:', key_phrases)
 
-            st.write('Key phrases:')
-            st.text(key_phrases)
-
-        combined_text = "\n".join(document_text)
+            combined_text += "\n" + document_text
  
         # Text box for asking a question
         question = st.text_input(f'Ask a question based on the text from any pdf:')
