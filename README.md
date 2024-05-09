@@ -35,12 +35,13 @@ pip install streamlit spacy pdfminer.six sentence_transformers faiss-cpu transfo
 
 # Additionally, you need to download the SpaCy English model
 python -m spacy download en_core_web_sm
-
+```
 ## Usage
 To start the application, navigate to the project directory in your terminal and run:
 
 ```bash
 streamlit run app.py
+```
 
 Open your web browser and go to http://localhost:8501 to interact with the GPT-bot.
 
